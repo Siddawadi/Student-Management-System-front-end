@@ -31,14 +31,15 @@ function App() {
       <Routes>
 
         <Route path="/register" element=  {<Registerpage/>}/>
-    <Route path="/login" element={<LoginPage/>}/>
-    <Route path='/' element={<Clientlayout/>}>
+  
+    <Route path='/' element={<LoginPage/>}>
     
 
       <Route path='aboutus' element={<Aboutus/>}/>
         <Route path='/' element={<Landingpage/>}/>
         </Route>
     <Route path="/admin" element={<Adminlayout/>}>
+
     <Route path='dashboard' element={<Dashboard/>}/>
     <Route path='students' element={<StudentCourseSection/>}/>
     <Route path='attendance' element={<Attendancepage/>}/>

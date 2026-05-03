@@ -7,7 +7,7 @@ import type { LoginInput } from '../types/login.types'
 import { login } from '../api/auth.api'
 import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from 'react-router'
-
+import { Link } from 'react-router'
 import { useState } from 'react'
 
 export const Loginform = () => {
@@ -60,6 +60,7 @@ export const Loginform = () => {
           </button>
         </div>
       </form>
+       <span> <Link to="/register" className="text-xs flex justify-center items-center hover:underline">Don't have an account?</Link></span>
     </div>
   )
 }
