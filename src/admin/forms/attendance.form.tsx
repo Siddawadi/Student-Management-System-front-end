@@ -90,7 +90,7 @@ export const Attendanceform = () => {
         <AttendanceList
           student={studentData.data}
           date={selectedDate}
-          existingAttendance={attendanceData?.data ?? []}  // ✅ pass down
+          existingAttendance={attendanceData?.data ?? []}  
         />
       )}
     </div>

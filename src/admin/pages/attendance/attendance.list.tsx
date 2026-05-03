@@ -4,7 +4,7 @@ import { AttendanceCard } from './Attendance.card'
 interface IProps {
   student: IAttendance[]
   date: Date
-  existingAttendance: any[]  // ✅ added
+  existingAttendance: any[]  
 }
 
 export const AttendanceList = ({ student, date, existingAttendance }: IProps) => {
@@ -16,7 +16,7 @@ export const AttendanceList = ({ student, date, existingAttendance }: IProps) =>
           key={data._id}
           student={data}
           date={date}
-          existingAttendance={existingAttendance}  // ✅ pass down
+          existingAttendance={existingAttendance}  
         />
       ))}
     </div>

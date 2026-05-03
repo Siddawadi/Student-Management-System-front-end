@@ -46,7 +46,7 @@ export const Updatefee = ({ id, course, semester, onSuccess }: Ifee) => {
     <div className='flex flex-col gap-4 p-4 w-full rounded-2xl'>
       <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4'>
 
-        {/* Status */}
+      
         <div className='flex flex-col gap-1'>
           <label htmlFor="status" className='text-sm font-medium text-gray-700'>Status</label>
           <select

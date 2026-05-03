@@ -91,13 +91,13 @@ export const Findattendance = () => {
         />
       </div>
 
-      {/* Results */}
+      
       <div className='flex-1 overflow-y-auto'>
         {isLoading && <DataLoading />}
 
         {!isLoading && attendanceData?.data?.length > 0 && (
           <>
-            {/* Total + Delete All */}
+          
             <div className='flex items-center justify-between mb-2'>
               <p className='text-xs text-gray-400'>Total: {attendanceData.data.length} records</p>
               <button
@@ -109,7 +109,7 @@ export const Findattendance = () => {
               </button>
             </div>
 
-            {/* Header */}
+         
             <div className='grid grid-cols-5 px-4 py-2 text-xs text-gray-400 font-semibold uppercase border-b gap-4'>
               <p>Name</p>
               <p>Phone</p>
@@ -118,7 +118,7 @@ export const Findattendance = () => {
               <p>Action</p>
             </div>
 
-            {/* Rows */}
+           
             {attendanceData.data.map((att: any) => (
               att.student ? (
                 <div key={att._id} className='grid grid-cols-5 px-4 py-3 border-b gap-4 items-center'>

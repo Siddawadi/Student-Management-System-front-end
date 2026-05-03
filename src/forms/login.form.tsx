@@ -23,10 +23,10 @@ export const Loginform = () => {
     mutationFn: login,
     onSuccess: (response) => {
   const role = response?.data?.role
-  const token = response?.access_token  // ✅ get token
+  const token = response?.access_token  // get token as token nai store garkeo xaina so 
   
   if (token) {
-    localStorage.setItem('access_token', token)  // ✅ store token
+    localStorage.setItem('access_token', token)  // yeta chai token  store hunxa
   }
   
   console.log(role)

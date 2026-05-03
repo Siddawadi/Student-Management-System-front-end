@@ -6,7 +6,7 @@ import { AddAttendance } from '../../../api/attendance.api'
 interface Iprops {
   student: IAttendance
   date: Date
-  existingAttendance: any[]  // ✅ added
+  existingAttendance: any[]  
 }
 
 export const AttendanceCard = ({ student, date, existingAttendance }: Iprops) => {
@@ -16,7 +16,7 @@ export const AttendanceCard = ({ student, date, existingAttendance }: Iprops) =>
   )
 
   const [status, setStatus] = useState(existing?.status ?? "")
-  const [submitted, setSubmitted] = useState(!!existing)  // ✅ pre-set if already saved
+  const [submitted, setSubmitted] = useState(!!existing)  
 
   // reset when date changes
   useEffect(() => {

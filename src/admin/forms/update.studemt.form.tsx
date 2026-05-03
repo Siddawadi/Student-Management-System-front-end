@@ -45,11 +45,11 @@ export const Updatestudent = ({ id, onSuccess, student }: Iprops) => {
 const { mutate, isPending } = useMutation({
   mutationFn: (data: FormData) => studentupdate({ id, data }),
   onSuccess: () => {
-    console.log("mutation success")  // ✅
+    console.log("mutation success")  
     onSuccess?.()
   },
   onError: (error) => {
-    console.error("mutation error", error)  // ✅
+    console.error("mutation error", error) 
   }
 })
 

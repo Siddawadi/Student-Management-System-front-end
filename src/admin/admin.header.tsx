@@ -13,7 +13,7 @@ export const Header = () => {
     mutationFn: logoutFn,
     onSuccess: () => {
       setUser(null)
-      navigate("/login")
+      navigate("/")
     }, 
     onError: (error) => {
       console.error(error)
