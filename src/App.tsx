@@ -5,7 +5,7 @@ import { Landingpage } from './pages/landing.page'
 import { LoginPage } from './pages/auth/login.page'
 import { Registerpage } from './pages/auth/register.page'
 import { Aboutus } from './pages/aboutus'
-import { Clientlayout } from './client/client.layout'
+
 import { StudentCourseSection } from './admin/pages/students/student courses'
 
 import { Courses } from './admin/pages/courses/courses'
