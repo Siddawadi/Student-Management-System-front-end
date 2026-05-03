@@ -22,14 +22,20 @@ export const Loginform = () => {
   const { mutate, isPending, isError } = useMutation({
     mutationFn: login,
     onSuccess: (response) => {
-      const role = response?.data?.role
-      console.log(role)
-      if (role === "ADMIN") {
-        navigate("/admin/dashboard")
-      } else {
-        setAccessDenied(true)  // ✅ show message via state
-      }
-    },
+  const role = response?.data?.role
+  const token = response?.access_token  // ✅ get token
+  
+  if (token) {
+    localStorage.setItem('access_token', token)  // ✅ store token
+  }
+  
+  console.log(role)
+  if (role === "ADMIN") {
+    navigate("/admin/dashboard")
+  } else {
+    setAccessDenied(true)
+  }
+},
     onError: (error) => {
       console.log("login error", error)
     }
