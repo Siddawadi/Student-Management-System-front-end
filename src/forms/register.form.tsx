@@ -61,7 +61,7 @@ export const  Registerform = () => {
         
         <button disabled={isPending} className="min-h-10 bg-green-900 min-w-full text-white rounded-2xl hover:border-2 hover:border-amber-50 ">Register</button>
     
-    <span> <Link to="/login" className="text-xs flex justify-center items-center hover:underline">Already has an account?</Link></span>
+    <span> <Link to="/" className="text-xs flex justify-center items-center hover:underline">Already has an account?</Link></span>
 </div>
 </div>
 </form>
