@@ -32,7 +32,7 @@ export const Feecard = ({ fee, semester, course }: Icard) => {
 
     return (
         // ✅ overflow-hidden stops horizontal blowout
-        <div className='bg-gray-200 border-2 rounded-2xl shadow-2xl flex flex-col items-center text-gray-700 p-4 gap-3 overflow-hidden w-full'>
+     <div className='bg-gray-200 border-2 rounded-2xl shadow-2xl flex flex-col items-center text-gray-700 p-4 gap-3 overflow-hidden w-full'>
 
             {/* Header row */}
             <div className='flex w-full justify-between items-center'>
