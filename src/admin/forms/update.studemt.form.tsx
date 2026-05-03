@@ -1,8 +1,19 @@
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import { Input } from '../../components/common/inputs/input'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import { studentupdate } from '../../api/student.api'
 import { useRef } from 'react'
+import type { IStudent } from '../../types/student.types'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
+
+const updateStudentSchema = yup.object({
+  first_name: yup.string().required(),
+  last_name: yup.string().required(),
+  email: yup.string().email().required(),
+  phone: yup.string().required(),
+  semester: yup.string().required(),
+})
 
 interface IUpdateStudentInput {
   first_name: string
@@ -14,35 +25,36 @@ interface IUpdateStudentInput {
 
 interface Iprops {
   id: string
-  onSuccess?: () => void  // close modal after update
+  student: IStudent
+  onSuccess?: () => void
 }
 
-export const Updatestudent = ({ id, onSuccess }: Iprops) => {
-  const queryClient = useQueryClient()
+export const Updatestudent = ({ id, onSuccess, student }: Iprops) => {
   const fileRef = useRef<HTMLInputElement>(null)
 
   const { register, handleSubmit, formState: { errors } } = useForm<IUpdateStudentInput>({
     defaultValues: {
-      first_name: "",
-      last_name: "",
-      email: "",
-      phone: "",
-      semester: "",
-    }
-  })
-
-  const { mutate, isPending } = useMutation({
-    mutationFn: (data: FormData) => studentupdate({ id, data }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["get all students"] })
-      onSuccess?.()
+      first_name: student.first_name,
+      last_name: student.last_name,
+      email: student.email,
+      phone: student.phone,
+      semester: student.semester,
     },
-    onError: (error) => {
-      console.error(error)
-    }
+    resolver: yupResolver(updateStudentSchema)
   })
+const { mutate, isPending } = useMutation({
+  mutationFn: (data: FormData) => studentupdate({ id, data }),
+  onSuccess: () => {
+    console.log("mutation success")  // ✅
+    onSuccess?.()
+  },
+  onError: (error) => {
+    console.error("mutation error", error)  // ✅
+  }
+})
 
   const onSubmit: SubmitHandler<IUpdateStudentInput> = (formdata) => {
+    console.log("submitting", formdata)
     const form = new FormData()
     form.append("first_name", formdata.first_name)
     form.append("last_name", formdata.last_name)
@@ -50,7 +62,6 @@ export const Updatestudent = ({ id, onSuccess }: Iprops) => {
     form.append("phone", formdata.phone)
     form.append("semester", formdata.semester)
 
-    // profile image if selected
     const file = fileRef.current?.files?.[0]
     if (file) {
       form.append("profile_image", file)
@@ -75,7 +86,6 @@ export const Updatestudent = ({ id, onSuccess }: Iprops) => {
       <Input register={register} name="phone" label="Phone"
         id="phone" placeholder="Enter phone" error={errors?.phone?.message} />
 
-      {/* Semester */}
       <div className='flex flex-col gap-1 px-5'>
         <label className='text-gray-400 text-sm'>Semester</label>
         <select {...register("semester")} className='h-10 rounded-2xl border-2 shadow-2xl'>
@@ -86,9 +96,11 @@ export const Updatestudent = ({ id, onSuccess }: Iprops) => {
             </option>
           ))}
         </select>
+        {errors?.semester?.message && (
+          <p className='text-red-400 text-xs'>{errors.semester.message}</p>
+        )}
       </div>
 
-      {/* Profile Image */}
       <div className='flex flex-col gap-1 px-5'>
         <label className='text-gray-400 text-sm'>Profile Image</label>
         <input

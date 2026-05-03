@@ -1,9 +1,9 @@
 import { Feecard } from './feecard'
 
-import type { IProps } from '../../../types/fee.types'
+import type { IIfees } from '../../../types/fee.types'
 
 interface Ifees {
-    fees: IProps[]
+    fees: IIfees[]
     semester: string
     course: string
 }

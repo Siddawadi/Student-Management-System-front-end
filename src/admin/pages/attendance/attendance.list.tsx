@@ -1,19 +1,24 @@
-import React from 'react'
 import type { IAttendance } from '../../../types/attedance.types'
 import { AttendanceCard } from './Attendance.card'
-interface IProps{
-    student:IAttendance[]
-    date:Date
-}
-export const AttendanceList = ({student,date}:IProps) => {
-    console.log("todays date is ",date)
-  return (
-    <div className='min-h-screen grid grid-cols-1 w-screen'>
-        <p> no of Students {student.length}</p>
 
-        {
-            student.map((data)=><AttendanceCard key={data._id} student={data} date={date}/>)
-        }
+interface IProps {
+  student: IAttendance[]
+  date: Date
+  existingAttendance: any[]  // ✅ added
+}
+
+export const AttendanceList = ({ student, date, existingAttendance }: IProps) => {
+  return (
+    <div className='flex flex-col gap-2 w-full mt-4'>
+      <p className='text-sm text-gray-500'>Students: {student.length}</p>
+      {student.map((data) => (
+        <AttendanceCard
+          key={data._id}
+          student={data}
+          date={date}
+          existingAttendance={existingAttendance}  // ✅ pass down
+        />
+      ))}
     </div>
   )
 }

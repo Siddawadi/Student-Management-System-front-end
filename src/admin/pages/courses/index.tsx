@@ -8,7 +8,7 @@ export const Course = () => {
 
   const { data, isLoading } = useQuery({
     queryFn: CourseFn,
-    queryKey: ["get all courses"]
+    queryKey: ["courses"]
   });
   console.log(data?.data)
 

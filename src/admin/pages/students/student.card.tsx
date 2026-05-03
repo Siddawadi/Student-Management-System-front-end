@@ -20,14 +20,16 @@ export const Studentcard = ({ student }: Iprops) => {
   const { mutate: deleteStudent } = useMutation({
     mutationFn: (id: string) => studentdelete(id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["get all students"] });
+      queryClient.invalidateQueries({ queryKey: ["findall"] });
       setConfirmDel(false);
     },
+    
   });
 
   return (
     <div className='bg-gray-200 border-2 rounded-2xl min-h-fit shadow-2xl
      text-gray-700 gap-3 border-gray-300 p-5'>
+        
       {student?.profile_image?.path && (
         <img
           src={student?.profile_image?.path}
@@ -70,7 +72,14 @@ export const Studentcard = ({ student }: Iprops) => {
             onClick={(e) => e.stopPropagation()}
           >
             <h2 className="text-lg font-semibold text-gray-700 p-4">Edit Student</h2>
-            <Updatestudent id={student._id} onSuccess={() => setEdit(false)} />
+           <Updatestudent 
+  id={student._id} 
+  student={student} 
+ onSuccess={async () => {
+  await queryClient.invalidateQueries()  
+  setEdit(false)
+}}
+/>
           </div>
         </div>
       )}

@@ -1,7 +1,7 @@
 
 
 import { useQuery } from '@tanstack/react-query'
-import React, { useState } from 'react'
+import  { useState } from 'react'
 import { studentlaw } from '../../../../../api/student.api'
 import { Datanotfound } from '../../../../../components/common/datanotfound'
 import { DataLoading } from '../../../../../components/common/DataLoading'
@@ -9,10 +9,11 @@ import { StudentList } from '../student.lists'
 
 export const Studentlaw = () => {
 const [semester,setSemester]=useState("")
-    const {data,isLoading,isPending,isError,isSuccess}=useQuery({
-        queryKey:["get-all-law",semester],
+    const {data,isLoading,isError,isSuccess,dataUpdatedAt}=useQuery({
+        queryKey:["students-law",semester],
         queryFn:()=>studentlaw(semester),
         enabled:!!semester,
+        staleTime:0
 
     })
     
@@ -54,7 +55,7 @@ onChange={(e)=>{
     {isLoading && <DataLoading/>}
 
     {!isLoading && data?.data?.length >0 &&(
-        <StudentList  students={data.data}/>
+        <StudentList key={dataUpdatedAt}  students={data.data}/>
     )}
      {!isLoading && data?.data?.length ===0 && <Datanotfound/>}
 

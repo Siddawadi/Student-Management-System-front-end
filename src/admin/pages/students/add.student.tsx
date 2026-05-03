@@ -43,7 +43,7 @@ export const Addstudent = () => {
     mutationFn: StudentINputFN,
     onSuccess: (response) => {
       console.log(response)
-      queryClient.invalidateQueries({ queryKey: ['all-students'] })
+      queryClient.invalidateQueries({ queryKey: ['findall'] })
       reset()
       setPhotoFile(null)   
       setPreview(null)     

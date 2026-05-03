@@ -4,41 +4,33 @@ import { SectionHeading } from "../../../../../components/common/section.heading
 import { DataLoading } from "../../../../../components/common/DataLoading"
 import { StudentList } from "../student.lists"
 import { Datanotfound } from "../../../../../components/common/datanotfound"
-
 import { useState } from "react"
-
+import { Link } from "react-router"
 export const Studentbca = () => {
-
   const [semester, setSemester] = useState("")
 
-  const { data, isLoading, isError } = useQuery({
-    queryFn: ()=> studentbca(semester),
+  const { data, isLoading, isError, dataUpdatedAt } = useQuery({
+    queryFn: () => studentbca(semester),
     queryKey: ["students-bca", semester],
-    enabled: !!semester   // ✅ only fetch when semester is selected
+    enabled: !!semester,
+    staleTime: 0,
   })
 
   return (
     <div className="p-4">
-
-      {/* Add Student Button */}
-      
-
-      {/* Heading */}
+       <Link to="/admin/students" className='border w-fit px-4 py-2 text-white bg-green-700 rounded-lg'> back</Link>
       <SectionHeading
         title="List of students"
         subtitle="The list of students from BCA"
         link="#"
       />
 
-      {/* Semester Filter */}
       <div className="my-4">
+       
         <label className="mr-2 font-semibold">Semester:</label>
-
         <select
           value={semester}
-          onChange={(e) =>{ 
-            console.log(e.target.value)
-            setSemester(e.target.value)}}
+          onChange={(e) => setSemester(e.target.value)}
           disabled={isLoading}
           className='h-10 px-3 rounded-xl border-2 shadow-md'
         >
@@ -54,29 +46,15 @@ export const Studentbca = () => {
         </select>
       </div>
 
-      {/* Before Selection */}
-      {!semester && (
-        <p className="text-gray-400">Please select a semester</p>
-      )}
-
-      {/* Loading */}
+      {!semester && <p className="text-gray-400">Please select a semester</p>}
       {isLoading && <DataLoading />}
+      {isError && <p className="text-red-500">Failed to load students ❌</p>}
 
-      {/* Error */}
-      {isError && (
-        <p className="text-red-500">Failed to load students ❌</p>
-      )}
-
-      {/* Data */}
       {!isLoading && data?.data?.length > 0 && (
-        <StudentList students={data.data} />
+        <StudentList key={dataUpdatedAt} students={data.data} />  // ✅ key forces re-render
       )}
 
-      {/* No Data */}
-      {!isLoading && semester && data?.data?.length === 0 && (
-        <Datanotfound />
-      )}
-
+      {!isLoading && semester && data?.data?.length === 0 && <Datanotfound />}
     </div>
   )
 }

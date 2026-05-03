@@ -31,12 +31,12 @@ export const Addfee = () => {
 
     const { data: studentData, isLoading: studentLoading } = useQuery({
         queryFn: studentfn,
-        queryKey: ["find-all-students"]
+        queryKey: ["findall"]
     })
 
     const { data: courseData, isLoading: courseLoading } = useQuery({
         queryFn: CourseFn,
-        queryKey: ['get-all-courses']
+        queryKey: ['courses']
     })
 
     const { mutate, isPending } = useMutation({

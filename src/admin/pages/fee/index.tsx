@@ -12,7 +12,7 @@ export const Fee = () => {
 
     const { data: courseData, isLoading: courseLoading } = useQuery({
         queryFn: CourseFn,
-        queryKey: ["get-all-courses"]
+        queryKey: ["courses"]
     })
        
 

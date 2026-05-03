@@ -10,13 +10,14 @@ export const StudentCourseSection = ()=>{
 
 const {data , isLoading}= useQuery({
 queryFn:CourseFn,
-queryKey:["get all courses"]
+queryKey:["courses"]
 
 })
 console.log(data?.data)
 
 return(
 <div>
+       
     <Link
         to="/admin/addStudents"
         className='border px-4 py-2 text-white bg-green-700 rounded-lg'

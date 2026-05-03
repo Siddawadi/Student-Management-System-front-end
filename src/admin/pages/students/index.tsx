@@ -9,7 +9,8 @@ export const Student = () => {
 
   const {data,isLoading}=useQuery({
     queryFn:studentfn,
-    queryKey:["findall"]
+    queryKey:["findall"],
+    staleTime: 0  
   })
   console.log(data?.data)
   return (

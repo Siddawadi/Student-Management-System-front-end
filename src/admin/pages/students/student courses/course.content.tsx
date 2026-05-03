@@ -20,6 +20,7 @@ const Items = ({ label, link, coordinator,schedule, code ,duration}: CourseItem)
   return (
     <div className="bg-gray-200 border-2 rounded-2xl  min-h-fit shadow-2xl   border-gray-300 p-5">
       <Link className="text-gray-700 flex flex-col gap-2 items-center justify-center" to={link}>
+      
         <p className="text-green-900 bg-gray-300 max-w-15 items-center flex px-2 rounded-2xl">
           {code}
         </p>

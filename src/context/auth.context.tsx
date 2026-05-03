@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react"
+import React, { createContext } from "react"
 import type { IUser } from "../types/login.types"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { getProfile } from "../api/auth.api"
@@ -14,7 +14,7 @@ const initialValues: IAuthContext = {
     user: null,
     isLoading: false,
     isAuthenticated: false,
-    setUser: () => {}  // ✅ empty default
+    setUser: () => {}  //
 }
 
 export const AuthContext = createContext<IAuthContext>(initialValues)

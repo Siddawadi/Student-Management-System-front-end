@@ -1,29 +1,24 @@
-import React, { useState } from 'react'
-import { Input } from '../../components/common/inputs/input'
+import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import { CourseFn } from '../../api/course.api'
 import type { IProps } from '../../types/course.types'
 import DatePicker from 'react-datepicker'
 import { findbySemesterandCourse } from '../../api/student.api'
 import { DataLoading } from '../../components/common/DataLoading'
 import { AttendanceList } from '../pages/attendance/attendance.list'
+import { FindAttendance } from '../../api/attendance.api'  // ✅ import
 import { Link } from 'react-router'
-
 
 export const Attendanceform = () => {
   const [semester, setSemester] = useState("")
   const [course, setCourse] = useState("")
 
-  const { register, control, watch } = useForm({
-    defaultValues: {
-      date: new Date()
-    }
+  const { control, watch } = useForm({
+    defaultValues: { date: new Date() }
   })
 
-  // Controller बाहिर date access गर्न watch प्रयोग गर्छौं
   const selectedDate = watch("date")
-  console.log("selected date outside controller:", selectedDate)
 
   const { data: studentData, isLoading: studentLoading } = useQuery({
     queryFn: () => findbySemesterandCourse(semester, course),
@@ -36,20 +31,17 @@ export const Attendanceform = () => {
     queryKey: ["get-all-courses"]
   })
 
-  const onSubmit = () => {
-    // यहाँ तीनवटै data available छ
-    console.log({
-      semester,
-      course,
-      date: selectedDate
-    })
-  }
+  // ✅ fetch existing attendance for this course + semester + date
+  const { data: attendanceData } = useQuery({
+    queryFn: () => FindAttendance(course, semester, selectedDate),
+    queryKey: ["find-attendance", course, semester, selectedDate],
+    enabled: !!course && !!semester && !!selectedDate
+  })
 
   return (
-    <div className='flex-col flex  min-h-screen min-w-full'>
+    <div className='flex-col flex min-h-screen min-w-full'>
       <div className='flex gap-4'>
 
-        {/* Course Select */}
         <select
           id="course"
           onChange={(e) => setCourse(e.target.value)}
@@ -62,24 +54,17 @@ export const Attendanceform = () => {
           ))}
         </select>
 
-        {/* Semester Select */}
         <select
           onChange={(e) => setSemester(e.target.value)}
           className='h-10 rounded-2xl border-2 border-black border-solid w-40'
           id="semester"
         >
           <option value="">Select Semester</option>
-          <option value="1st semester">1st semester</option>
-          <option value="2nd semester">2nd semester</option>
-          <option value="3rd semester">3rd semester</option>
-          <option value="4th semester">4th semester</option>
-          <option value="5th semester">5th semester</option>
-          <option value="6th semester">6th semester</option>
-          <option value="7th semester">7th semester</option>
-          <option value="8th semester">8th semester</option>
+          {["1st","2nd","3rd","4th","5th","6th","7th","8th"].map((n) => (
+            <option key={n} value={`${n} semester`}>{n} semester</option>
+          ))}
         </select>
 
-        {/* Date Picker */}
         <Controller
           control={control}
           name='date'
@@ -94,22 +79,20 @@ export const Attendanceform = () => {
           )}
         />
 
-        {/* Submit Button */}
-        <Link to="/admin/findattendance"  className='h-10 px-4 bg-green-700 text-white rounded-2xl'> find attendance</Link>
-          
-         
-       
-         
-        
+        <Link to="/admin/findattendance" className='h-10 px-4 bg-green-700 text-white rounded-2xl'>
+          find attendance
+        </Link>
 
       </div>
 
-      {/* Student List */}
       {studentLoading && <DataLoading />}
       {!studentLoading && studentData?.data?.length > 0 && (
-        <AttendanceList student={studentData.data} date={selectedDate} />
+        <AttendanceList
+          student={studentData.data}
+          date={selectedDate}
+          existingAttendance={attendanceData?.data ?? []}  // ✅ pass down
+        />
       )}
-
     </div>
   )
 }

@@ -1,8 +1,8 @@
-import { Profile } from '../profile'
+
 import Sidebarcontents from '../sidebar/sidebar.contents'
 import { Outlet } from 'react-router'
-import { AuthContext } from '../../context/auth.context'
-import { useContext } from 'react'
+
+
 import { Header } from '../admin.header'
 export const Adminlayout = () => {
   return (

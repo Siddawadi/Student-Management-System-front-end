@@ -1,20 +1,21 @@
 import { useQuery } from "@tanstack/react-query"
-import { studentbca, studetntbhm } from "../../../../../api/student.api"
+import {  studetntbhm } from "../../../../../api/student.api"
 import { SectionHeading } from "../../../../../components/common/section.heading"
 import { DataLoading } from "../../../../../components/common/DataLoading"
 import { StudentList } from "../student.lists"
 import { Datanotfound } from "../../../../../components/common/datanotfound"
-import { Link } from "react-router"
+
 import { useState } from "react"
 
 export const Studentbhm = () => {
 
   const [semester, setSemester] = useState("")
 
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading, isError,dataUpdatedAt } = useQuery({
     queryFn: ()=> studetntbhm(semester),
     queryKey: ["students-bhm", semester],
-    enabled: !!semester   // ✅ only fetch when semester is selected
+    enabled: !!semester,
+    staleTime: 0,    // ✅ only fetch when semester is selected
   })
 
   return (
@@ -69,7 +70,7 @@ export const Studentbhm = () => {
 
       {/* Data */}
       {!isLoading && data?.data?.length > 0 && (
-        <StudentList students={data.data} />
+        <StudentList key={dataUpdatedAt} students={data.data} />
       )}
 
       {/* No Data */}

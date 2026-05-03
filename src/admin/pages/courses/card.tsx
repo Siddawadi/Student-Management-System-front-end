@@ -74,7 +74,11 @@ export const Card = ({ course }: CardProps) => {
             className="bg-white min-h-[30vh] min-w-[30vw] rounded-2xl p-6"
             onClick={(e) => e.stopPropagation()}
           >
-            <Updatecourse id={course._id} />
+       <Updatecourse 
+  id={course._id} 
+  course={course}  // ✅ pass course
+  onSuccess={() => setEdit(false)}  // ✅ close modal
+/>
           </div>
         </div>
       )}

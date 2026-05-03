@@ -1,13 +1,10 @@
 import instance from "."
 
 export const getDashboardStats = async () => {
-
-    try {
-        const res = await instance.get("/dashboard/stats")
-  return res.data
+  try {
+    const res = await instance.get("/dashboard/stats")
+    return res.data
+  } catch (error) {
+    throw error
+  }
 }
-     catch (error) {
-        
-    }
-}
-  

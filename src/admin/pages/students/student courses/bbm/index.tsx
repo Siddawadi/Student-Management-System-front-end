@@ -11,10 +11,11 @@ export const Studentbbm = () => {
 
   const [semester, setSemester] = useState("")
 
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading, isError ,dataUpdatedAt} = useQuery({
     queryFn: ()=> studentbbm(semester),
     queryKey: ["students-bbm", semester],
-    enabled: !!semester   // ✅ only fetch when semester is selected
+    enabled: !!semester ,  // ✅ only fetch when semester is selected
+    staleTime: 0,  // ✅
   })
 
   return (
@@ -68,7 +69,7 @@ export const Studentbbm = () => {
 
       
       {!isLoading && data?.data?.length > 0 && (
-        <StudentList students={data.data} />
+        <StudentList key={dataUpdatedAt} students={data.data} />
       )}
 
       {!isLoading && semester && data?.data?.length === 0 && (

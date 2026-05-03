@@ -51,9 +51,9 @@ export const Addcourses = () => {
   }
   
   return (
-     <main className='min-h-screen h-screen bg-black flex flex-col justify-center items-center' >
+     <main className='min-h-screen h-screen bg-olive-200 flex flex-col justify-center items-center' >
     
-            <div className='border-blue-300 border min-h-110   min-w-80 bg-black shadow-2xl
+            <div className='border-blue-300 border min-h-110   min-w-80 bg-olive-200 shadow-2xl
              shadow-blue-950 rounded-2xl flex flex-col justify-start items-center gap-2
               text-gray-400'>
       <p className='text-white'> Add Courses</p>

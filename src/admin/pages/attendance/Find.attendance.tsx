@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import  { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { CourseFn } from '../../../api/course.api'
@@ -7,7 +7,7 @@ import type { IProps } from '../../../types/course.types'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { DataLoading } from '../../../components/common/DataLoading'
-
+import { Link } from 'react-router'
 export const Findattendance = () => {
   const [course, setCourse] = useState("")
   const [semester, setSemester] = useState("")
@@ -46,9 +46,10 @@ export const Findattendance = () => {
 
   return (
     <div className='flex flex-col w-full h-screen overflow-hidden p-4 gap-4'>
-
+ 
       {/* Filters */}
       <div className='flex flex-wrap gap-3 items-center'>
+         <Link to="/admin/attendance" className='border w-fit px-4 py-2 text-white bg-green-700 rounded-lg'> back</Link>
         <select
           onChange={(e) => setCourse(e.target.value)}
           disabled={courseLoading}
